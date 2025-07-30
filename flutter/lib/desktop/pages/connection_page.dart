@@ -575,7 +575,7 @@ class _ConnectionPageState extends State<ConnectionPage>
                                 () => onConnect(isViewCamera: true)
                               ),
                               (
-                                'Terminal',
+                                '${translate('Terminal')} (beta)',
                                 () => onConnect(isTerminal: true)
                               ),
                             ]

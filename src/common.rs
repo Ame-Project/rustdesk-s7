@@ -87,7 +87,7 @@ lazy_static::lazy_static! {
 lazy_static::lazy_static! {
     // Is server process, with "--server" args
     static ref IS_SERVER: bool = std::env::args().nth(1) == Some("--server".to_owned());
-    // Is server logic running. The server code can invoke to run by the main process if --server is not running.
+    // Is server logic running. The server code can invoked to run by the main process if --server is not running.
     static ref SERVER_RUNNING: Arc<RwLock<bool>> = Default::default();
     static ref IS_MAIN: bool = std::env::args().nth(1).map_or(true, |arg| !arg.starts_with("--"));
     static ref IS_CM: bool = std::env::args().nth(1) == Some("--cm".to_owned()) || std::env::args().nth(1) == Some("--cm-no-ui".to_owned());
@@ -161,16 +161,6 @@ pub fn is_support_screenshot(ver: &str) -> bool {
 #[inline]
 pub fn is_support_screenshot_num(ver: i64) -> bool {
     ver >= hbb_common::get_version_number("1.4.0")
-}
-
-#[inline]
-pub fn is_support_file_transfer_resume(ver: &str) -> bool {
-    is_support_file_transfer_resume_num(hbb_common::get_version_number(ver))
-}
-
-#[inline]
-pub fn is_support_file_transfer_resume_num(ver: i64) -> bool {
-    ver >= hbb_common::get_version_number("1.4.2")
 }
 
 // is server process, with "--server" args
@@ -1918,7 +1908,7 @@ pub async fn test_ipv6() -> Option<tokio::task::JoinHandle<()>> {
                         && !ip.is_unicast_link_local()
                         && (ip.segments()[0] & 0xe000) == 0x2000
                     {
-                        // only use the first one, on macOS, the first one is the stable
+                        // only use the first one, on mac, the first one is the stable
                         // one, the last one is the temporary one. The middle ones are deperecated.
                         *PUBLIC_IPV6_ADDR.lock().unwrap() =
                             Some((SocketAddr::from((ip, 0)), Instant::now()));
@@ -2117,7 +2107,7 @@ mod tests {
         assert_eq!(times.len(), times2.len() + 3);
     }
 
-    // ThrottledInterval tick less times than tokio interval, if there are sleeps
+    // ThrottledInterval tick less times than tokio interval, if there're sleeps
     #[allow(non_snake_case)]
     #[tokio::test]
     async fn test_RustDesk_interval_sleep() {
